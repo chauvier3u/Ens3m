@@ -1,5 +1,3 @@
-package TP_3;
-
 import utilensemjava.Lecture;
 
 public class exercice_2
@@ -13,9 +11,21 @@ public class exercice_2
 		int nombre_vingt;
 		int nombre_un;
 
-		// Demande � l'utilisateur
+		// Demande à l'utilisateur
+
 		cheque_euros = Lecture.lireEntier("Combien d'euros dans le cheque ? ");
 		cheque_centimes = Lecture.lireEntier("Combien de centimes dans le cheque ? ");
+
+//		// Utilisation du Scanner (si pas la bibliothèque utilensemjava)
+//
+//		Scanner sc = new Scanner(System.in);
+//
+//		System.out.println("Combien d'euros dans le cheque ?\n");
+//		cheque_euros = Integer.parseInt(sc.nextLine());
+//		System.out.println("Combien de centimes dans le cheque ?\n");
+//		cheque_centimes = Integer.parseInt(sc.nextLine());
+//
+//		sc.close();
 
 		// Determination du nombre de monnaie
 		nombre_dix = cheque_euros / 10;
@@ -34,8 +44,10 @@ public class exercice_2
 
 		nombre_un = cheque_centimes;
 
-		System.out.print("Le cheque correspond a " + nombre_dix + " billets de 10, " + nombre_cinq
-				+ " billets de cinq, ainsi que " + nombre_vingt + " pieces de 20 centimes et " + nombre_un
-				+ " de 1 centime.");
+		System.out.println("Le cheque correspond a :");
+		System.out.println(nombre_dix + " billets de 10");
+		System.out.println(nombre_cinq + " billets de cinq");
+		System.out.println(nombre_vingt + " pieces de 20 centimes");
+		System.out.println(nombre_un + " de 1 centime.");
 	}
 }

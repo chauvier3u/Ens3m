@@ -1,5 +1,3 @@
-package TP_3;
-
 import java.util.Arrays;
 import utilensemjava.Lecture;
 

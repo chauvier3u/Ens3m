@@ -1,5 +1,3 @@
-package TP_3;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -7,6 +5,29 @@ import java.awt.event.KeyEvent;
 
 public class exercice_4
 {
+	public static void main(String[] args) throws AWTException
+	{
+		// l'exercice 4 marchait sur mon petit ordi, qui a un petit écran, donc il ne
+		// marchera pas sur les ordis
+		// de l'ensem, car les coordonnées ne sont pas les bonnes, donc le programme est
+		// la, mais fais attention
+		// en recopiant
+
+		int x0 = 500;
+		int y0 = 200;
+		int temps = 10;
+		Robot R1 = new Robot();
+
+		/*
+		 * niveau1(R1, x0, y0, temps); fermer_paint(R1); niveau2(R1, x0, y0, temps);
+		 * fermer_paint(R1); niveau3(R1, x0, y0, temps); fermer_paint(R1); niveau4(R1,
+		 * x0, y0, temps); //fermer_paint(R1);
+		 */niveau5(R1, x0, y0, temps);
+		fermer_paint(R1);
+		R1.mouseMove(0, 0);
+
+	}
+
 	/**
 	 * @param args
 	 * @throws AWTException
@@ -178,8 +199,7 @@ public class exercice_4
 					R1.delay(temps);
 					R1.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 					R1.delay(temps);
-				}
-				else
+				} else
 				{
 					R1.mouseMove(x0 + 60 + i * 80, y0 + 20 + j * 40);
 					R1.delay(temps);
@@ -190,22 +210,5 @@ public class exercice_4
 				}
 			}
 		}
-	}
-
-	public static void main(String[] args) throws AWTException
-	{
-		int x0 = 500;
-		int y0 = 200;
-		int temps = 10;
-		Robot R1 = new Robot();
-
-		/*
-		 * niveau1(R1, x0, y0, temps); fermer_paint(R1); niveau2(R1, x0, y0, temps);
-		 * fermer_paint(R1); niveau3(R1, x0, y0, temps); fermer_paint(R1); niveau4(R1,
-		 * x0, y0, temps); //fermer_paint(R1);
-		 */niveau5(R1, x0, y0, temps);
-		fermer_paint(R1);
-		R1.mouseMove(0, 0);
-
 	}
 }
