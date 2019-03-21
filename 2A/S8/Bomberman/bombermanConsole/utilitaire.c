@@ -9,6 +9,7 @@
 
 void affiche(int ligne, int colonne, char damier[ligne][colonne])
 {
+    // Affichage du damier
     int i;
     int j;
     for (i=0; i<ligne; i++)
@@ -134,14 +135,17 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
 
 void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
 {
+    // Génération aléatoire des obstacles
     int compteur = 0;
     int x = 1;
     int y = 1;
 
+    // initialisation de la fonction random
     srand(time(NULL));
 
     while (compteur < nbObs)
     {
+        // On met des obstacles sur les cases vides
         while (damier[x][y]!=' ')
         {
             x = rand()%(ligne);

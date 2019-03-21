@@ -12,7 +12,7 @@ int main()
     char listeDesMaps[2][100] = {"ensem", "bomberman"};
 
 
-    // Ouverture et stocakge de la map dans le damier
+    // Ouverture du fichier et stocakge de la map dans le damier en char[][]
     char PATH_TO_MAP[100]=("./Map/");
     strcat(PATH_TO_MAP, "ensem");
 
@@ -45,9 +45,9 @@ int main()
     affiche(ligne, colonne, damier);
 
 
-    // Initialisation de variable utile pour la boucle
+    // Initialisation du "booleen" et de l'input
     int jouer = 1;
-    char touche='\n';
+    char input='\n';
 
 
     // Boucle de jeu
@@ -55,12 +55,12 @@ int main()
     {
         // Action (déplacement / Poser Bombe)
         printf("dans quelle direction se deplacer (ou bien poser une bombe) ?\n");
-        scanf("%c",&touche);
+        scanf("%c",&input);
         printf("x:%d, y:%d\n",J1->x,J1->y);
 
 
         // Action en fonction de la touche jouer
-        action(touche, J1, ligne, colonne, damier);
+        action(input, J1, ligne, colonne, damier);
         affiche(ligne, colonne, damier);
 
 
