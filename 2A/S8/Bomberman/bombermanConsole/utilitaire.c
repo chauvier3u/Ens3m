@@ -5,7 +5,7 @@
 #include "utilitaire.h"
 
 #define RAYON_EXPLOSION 1
-#define TEMPS_AVANT_EXPLOSION 1
+#define TEMPS_AVANT_EXPLOSION 3
 
 void affiche(int ligne, int colonne, char damier[ligne][colonne])
 {
@@ -87,7 +87,7 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 {
                     damier[J1->x][J1->y] = 'o';
                     bombe *B1 = malloc(sizeof(bombe));
-                    B1->tempsAvantExplosion=TEMPS_AVANT_EXPLOSION;
+                    B1->tempsAvantExplosion=TEMPS_AVANT_EXPLOSION+1;
                     B1->rayonExplosion=RAYON_EXPLOSION;
                     B1->x=J1->x;
                     B1->y=J1->y;
@@ -97,12 +97,21 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
             break;
         default:
             break;
-    }
 
+    }
+    for (int i=0; i<J1->nombreBombeActive; i++)
+    {
+        J1->listeBombe[i]->tempsAvantExplosion--;
+        if(J1->listeBombe[i]->tempsAvantExplosion==0)
+        {
+            explosion(ligne, colonne, damier, J1->listeBombe[i]);
+        }
+    }
 }
 
 void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
 {
+
     int compteur = 0;
     int x = 1;
     int y = 1;
@@ -119,4 +128,10 @@ void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
         damier[x][y]='x';
         compteur+=1;
     }
+}
+
+void explosion(int ligne, int colonne, char damier[ligne][colonne], bombe *B)
+{
+    printf("youpi\n");
+    // To complete
 }

@@ -22,4 +22,7 @@ typedef struct
 void affiche(int ligne, int colonne, char damier[ligne][colonne]);
 void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne][colonne]);
 void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne]);
+void explosion(int ligne, int colonne, char damier[ligne][colonne], bombe *B);
+
+
 #endif // UTILITAIRE_H_INCLUDED
