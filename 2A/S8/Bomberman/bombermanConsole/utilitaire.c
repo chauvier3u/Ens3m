@@ -4,8 +4,8 @@
 
 #include "utilitaire.h"
 
-#define RAYON_EXPLOSION 1
-#define TEMPS_AVANT_EXPLOSION 3
+#define RAYON_EXPLOSION 2
+#define TEMPS_AVANT_EXPLOSION 5
 
 void affiche(int ligne, int colonne, char damier[ligne][colonne])
 {
@@ -20,8 +20,10 @@ void affiche(int ligne, int colonne, char damier[ligne][colonne])
 
 void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne][colonne])
 {
+    // Deplacement ou pose de bombe
     switch(input)
     {
+        // Vers le haut
         case 'z':
             if(J1->x-1>=0 && damier[J1->x-1][J1->y]==' ')
             {
@@ -33,6 +35,7 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 damier[J1->x][J1->y]='B';
             }
             break;
+        // Vers le bas
         case 's':
             if(J1->x+1<ligne && damier[J1->x+1][J1->y]==' ')
             {
@@ -44,7 +47,9 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 damier[J1->x][J1->y]='B';
             }
             break;
+        // Vers la gauche
         case 'q':
+            // Case Teleporter
             if(J1->y==0 && damier[J1->x][23] == ' ')
             {
                 if(damier[J1->x][J1->y]!='o')
@@ -53,7 +58,9 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 }
                 J1->y=23;
                 damier[J1->x][J1->y]='B';
-            }else if(J1->y-1>=0 && damier[J1->x][J1->y-1]==' ')
+            }
+            // Cas normal
+            else if(J1->y-1>=0 && damier[J1->x][J1->y-1]==' ')
             {
                 if(damier[J1->x][J1->y]!='o')
                 {
@@ -63,7 +70,9 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 damier[J1->x][J1->y]='B';
             }
             break;
+        // Vers la droite
         case 'd':
+            // Case teleporter
             if(J1->y==23 && damier[J1->x][0]==' ')
             {
                 if(damier[J1->x][J1->y]!='o')
@@ -72,7 +81,9 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 }
                 J1->y=0;
                 damier[J1->x][J1->y]='B';
-            }else if(J1->y+1<colonne-2 && damier[J1->x][J1->y+1]==' ')
+            }
+            // Cas normal
+            else if(J1->y+1<colonne-2 && damier[J1->x][J1->y+1]==' ')
             {
                 if(damier[J1->x][J1->y]!='o')
                 {
@@ -82,8 +93,9 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                 damier[J1->x][J1->y]='B';
             }
             break;
+        // Pose de bombe
         case ' ':
-            if (J1->nombreBombeActive<NOMBRE_DE_BOMBE)
+            if (J1->nombreBombeActive<NOMBRE_DE_BOMBE && damier[J1->x][J1->y] != 'o')
                 {
                     damier[J1->x][J1->y] = 'o';
                     bombe *B1 = malloc(sizeof(bombe));
@@ -99,19 +111,29 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
             break;
 
     }
+
+    // A mettre dans une fonction à part
     for (int i=0; i<J1->nombreBombeActive; i++)
     {
         J1->listeBombe[i]->tempsAvantExplosion--;
-        if(J1->listeBombe[i]->tempsAvantExplosion==0)
+        if(J1->listeBombe[i]->tempsAvantExplosion<=0)
         {
-            explosion(ligne, colonne, damier, J1->listeBombe[i]);
+            damier[J1->listeBombe[i]->x][J1->listeBombe[i]->y]=' ';
+            explosion(ligne, colonne, damier[ligne][colonne], J1->listeBombe[i]);
+            J1->listeBombe[i]=NULL;
+            for (int j=0; j<NOMBRE_DE_BOMBE-1; j++)
+            {
+                J1->listeBombe[j]=J1->listeBombe[j+1];
+            }
+            i--;
+            J1->nombreBombeActive--;
         }
     }
+    // Fin de ce qu'il faut bouger
 }
 
 void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
 {
-
     int compteur = 0;
     int x = 1;
     int y = 1;
@@ -132,6 +154,5 @@ void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
 
 void explosion(int ligne, int colonne, char damier[ligne][colonne], bombe *B)
 {
-    printf("youpi\n");
-    // To complete
+    // Ajouter la casse des murs
 }

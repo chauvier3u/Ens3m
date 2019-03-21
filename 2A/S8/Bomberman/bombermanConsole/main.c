@@ -4,7 +4,7 @@
 
 #include "utilitaire.h"
 
-#define NOMBRE_OBSTACLE 15
+#define NOMBRE_OBSTACLE 5
 
 int main()
 {
@@ -63,6 +63,13 @@ int main()
         action(touche, J1, ligne, colonne, damier);
         affiche(ligne, colonne, damier);
 
+
+        // Test
+        for (int i=0; i<J1->nombreBombeActive; i++)
+        {
+            printf("bombe numéro %d, coordonné %d %d, et temps avant explosion %d\n",
+            i, J1->listeBombe[i]->x, J1->listeBombe[i]->y, J1->listeBombe[i]->tempsAvantExplosion);
+        }
 
         // On vide le buffer de stdin pour ne pas avoir de \n ni meme un autre caractère que l'utilisateur pourrait avoir rentré.
         int c;
