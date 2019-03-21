@@ -13,3 +13,17 @@
 	<time.h>
 	"utilitaire.h"
 
+1553198589 source:/home/benoit/Documents/Git/Ens3m/2A/S8/Bomberman/bombermanConsole/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"utilitaire.h"
+
+1553198309 /home/benoit/Documents/Git/Ens3m/2A/S8/Bomberman/bombermanConsole/utilitaire.h
+
+1553198482 source:/home/benoit/Documents/Git/Ens3m/2A/S8/Bomberman/bombermanConsole/utilitaire.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"utilitaire.h"
+
