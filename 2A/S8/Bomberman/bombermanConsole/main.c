@@ -16,9 +16,6 @@ int main()
     char PATH_TO_MAP[100]=("./Map/");
     strcat(PATH_TO_MAP, "ensem");
 
-    int rayonExplosion=1;
-    int tempsAvantExplosion=1;
-
     int ligne;
     int colonne;
 
@@ -36,6 +33,7 @@ int main()
     bomberman *J1=malloc(sizeof(bomberman));
     J1->x=4;
     J1->y=1;
+    J1->nombreBombeActive=0;
 
 
     // Initialisation du damier
@@ -62,9 +60,15 @@ int main()
 
 
         // Action en fonction de la touche jouer
-        action(touche, &(J1->x), &(J1->y), ligne, colonne, damier);
+        action(touche, J1, ligne, colonne, damier);
         affiche(ligne, colonne, damier);
 
+        // Test
+        printf("nombre de bombe active %d\n", J1->nombreBombeActive);
+        for (int i=0; i<J1->nombreBombeActive;i++)
+        {
+            printf("coordonné de la bombe %d, x:%d, y:%d\n", i, J1->listeBombe[i]->x, J1->listeBombe[i]->y);
+        }
 
         // On vide le buffer de stdin pour ne pas avoir de \n ni meme un autre caractère que l'utilisateur pourrait avoir rentré.
         int c;

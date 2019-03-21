@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "utilitaire.h"
+
+#define RAYON_EXPLOSION 1
+#define TEMPS_AVANT_EXPLOSION 1
+
 void affiche(int ligne, int colonne, char damier[ligne][colonne])
 {
     int i;
@@ -13,72 +18,82 @@ void affiche(int ligne, int colonne, char damier[ligne][colonne])
     }
 }
 
-void action(char input, int *x, int *y, int ligne, int colonne, char damier[ligne][colonne])
+void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne][colonne])
 {
     switch(input)
     {
         case 'z':
-            if(*x-1>=0 && damier[*x-1][*y]==' ')
+            if(J1->x-1>=0 && damier[J1->x-1][J1->y]==' ')
             {
-                if(damier[*x][*y]!='o')
+                if(damier[J1->x][J1->y]!='o')
                 {
-                    damier[*x][*y] = ' ';
+                    damier[J1->x][J1->y] = ' ';
                 }
-                *x=(*x)-1;
-                damier[*x][*y]='B';
+                J1->x=J1->x-1;
+                damier[J1->x][J1->y]='B';
             }
             break;
         case 's':
-            if((*x)+1<ligne && damier[(*x+1)][*y]==' ')
+            if(J1->x+1<ligne && damier[J1->x+1][J1->y]==' ')
             {
-                if(damier[*x][*y]!='o')
+                if(damier[J1->x][J1->y]!='o')
                 {
-                    damier[*x][*y] = ' ';
+                    damier[J1->x][J1->y] = ' ';
                 }
-                *x=*x+1;
-                damier[*x][*y]='B';
+                J1->x=J1->x+1;
+                damier[J1->x][J1->y]='B';
             }
             break;
         case 'q':
-            if(*y==0 && damier[*x][23] == ' ')
+            if(J1->y==0 && damier[J1->x][23] == ' ')
             {
-                if(damier[*x][*y]!='o')
+                if(damier[J1->x][J1->y]!='o')
                 {
-                    damier[*x][*y] = ' ';
+                    damier[J1->x][J1->y] = ' ';
                 }
-                *y=23;
-                damier[*x][*y]='B';
-            }else if((*y)-1>=0 && damier[*x][*y-1]==' ')
+                J1->y=23;
+                damier[J1->x][J1->y]='B';
+            }else if(J1->y-1>=0 && damier[J1->x][J1->y-1]==' ')
             {
-                if(damier[*x][*y]!='o')
+                if(damier[J1->x][J1->y]!='o')
                 {
-                    damier[*x][*y] = ' ';
+                    damier[J1->x][J1->y] = ' ';
                 }
-                *y=*y-1;
-                damier[*x][*y]='B';
+                J1->y=J1->y-1;
+                damier[J1->x][J1->y]='B';
             }
             break;
         case 'd':
-            if(*y==23 && damier[*x][0]==' ')
+            if(J1->y==23 && damier[J1->x][0]==' ')
             {
-                if(damier[*x][*y]!='o')
+                if(damier[J1->x][J1->y]!='o')
                 {
-                    damier[*x][*y] = ' ';
+                    damier[J1->x][J1->y] = ' ';
                 }
-                *y=0;
-                damier[*x][*y]='B';
-            }else if((*y)+1<colonne-2 && damier[*x][*y+1]==' ')
+                J1->y=0;
+                damier[J1->x][J1->y]='B';
+            }else if(J1->y+1<colonne-2 && damier[J1->x][J1->y+1]==' ')
             {
-                if(damier[*x][*y]!='o')
+                if(damier[J1->x][J1->y]!='o')
                 {
-                    damier[*x][*y] = ' ';
+                    damier[J1->x][J1->y] = ' ';
                 }
-                *y=*y+1;
-                damier[*x][*y]='B';
+                J1->y=J1->y+1;
+                damier[J1->x][J1->y]='B';
             }
             break;
         case ' ':
-            damier[*x][*y] = 'o';
+            if (J1->nombreBombeActive<NOMBRE_DE_BOMBE)
+                {
+                    damier[J1->x][J1->y] = 'o';
+                    bombe *B1 = malloc(sizeof(bombe));
+                    B1->tempsAvantExplosion=TEMPS_AVANT_EXPLOSION;
+                    B1->rayonExplosion=RAYON_EXPLOSION;
+                    B1->x=J1->x;
+                    B1->y=J1->y;
+                    J1->listeBombe[J1->nombreBombeActive]=B1;
+                    J1->nombreBombeActive++;
+                }
             break;
         default:
             break;
