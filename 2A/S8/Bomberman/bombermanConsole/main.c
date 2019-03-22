@@ -45,11 +45,11 @@ int main()
 
 
 
-    // Initialisation du "booleen" et de l'input
+    // Initialisation de trucs utils pour la boucle
     int jouer = 1;
     char input='\n';
 
-    float score;
+    int score;
 
     // Boucle de jeu
     while (J1->enVie)
@@ -67,17 +67,11 @@ int main()
         actionJoueur(input, J1, ligne, colonne, damier);
         actionBombe(J1, ligne, colonne, damier);
 
-        /*// Affichage de test
-        if (J1->nombreObstacleCasse==0)
-        {
-            score = 0;
-        }else
-        {
-            score = (float)J1->nombreObstacleCasse/(J1->nombreBombesPose*RAYON_EXPLOSION);
-        }
-        printf("Score du joueur :\nnombre de mur cassé / (nombre de bombe * rayon explosion)\n= %d / (%d * %d) = %f\n",
-        J1->nombreObstacleCasse, J1->nombreBombesPose, RAYON_EXPLOSION, score);
-*/
+        // Affichage de test
+        score = J1->nombreBombesPose*J1->nombreObstacleCasse;
+        printf("Score du joueur :\nnombre de mur cassé * nombre de bombe\n= %d * %d = %d\n",
+        J1->nombreObstacleCasse, J1->nombreBombesPose, score);
+
 
         // On vide le buffer de stdin pour ne pas avoir de \n ni meme un autre caractère que l'utilisateur pourrait avoir rentré.
         int c;
