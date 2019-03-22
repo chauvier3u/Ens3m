@@ -4,9 +4,6 @@
 
 #include "utilitaire.h"
 
-#define RAYON_EXPLOSION 2
-#define TEMPS_AVANT_EXPLOSION 5
-
 void affiche(int ligne, int colonne, char damier[ligne][colonne])
 {
     // Affichage du damier
@@ -19,7 +16,7 @@ void affiche(int ligne, int colonne, char damier[ligne][colonne])
     }
 }
 
-void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne][colonne])
+void actionJoueur(char input, bomberman *J1, int ligne, int colonne, char damier[ligne][colonne])
 {
     // Deplacement ou pose de bombe
     switch(input)
@@ -106,21 +103,24 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
                     B1->y=J1->y;
                     J1->listeBombe[J1->nombreBombeActive]=B1;
                     J1->nombreBombeActive++;
+                    J1->nombreBombesPose++;
                 }
             break;
         default:
             break;
-
     }
+}
 
-    // A mettre dans une fonction à part
+// Reduction du temps avant explosion des bombes et eventuellement explosion
+void actionBombe(bomberman *J1, int ligne, int colonne, char damier[ligne][colonne])
+{
     for (int i=0; i<J1->nombreBombeActive; i++)
     {
         J1->listeBombe[i]->tempsAvantExplosion--;
         if(J1->listeBombe[i]->tempsAvantExplosion<=0)
         {
             damier[J1->listeBombe[i]->x][J1->listeBombe[i]->y]=' ';
-            explosion(ligne, colonne, damier[ligne][colonne], J1->listeBombe[i]);
+            explosion(ligne, colonne, damier, J1->listeBombe[i], J1);
             J1->listeBombe[i]=NULL;
             for (int j=0; j<NOMBRE_DE_BOMBE-1; j++)
             {
@@ -130,7 +130,6 @@ void action(char input, bomberman *J1, int ligne, int colonne, char damier[ligne
             J1->nombreBombeActive--;
         }
     }
-    // Fin de ce qu'il faut bouger
 }
 
 void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
@@ -156,7 +155,120 @@ void obstacle(int nbObs, int ligne, int colonne, char damier[ligne][colonne])
     }
 }
 
-void explosion(int ligne, int colonne, char damier[ligne][colonne], bombe *B)
+void explosion(int ligne, int colonne, char damier[ligne][colonne], bombe *B, bomberman *J)
 {
-    // Ajouter la casse des murs
+    int encoreEnHaut = B->rayonExplosion;
+    int encoreAGauche = B->rayonExplosion;
+    int encoreADroite = B->rayonExplosion;
+    int encoreEnBas = B->rayonExplosion;
+
+    int x = B->x;
+    int y = B->y;
+
+    for (int i=1; i<=B->rayonExplosion; i++)
+    {
+        // Explosion vers le haut
+        if (encoreEnHaut>0)
+        {
+            encoreEnHaut--;
+
+            // Si c'est le joueur, on perd
+            if (damier[x-i][y] == 'B')
+            {
+                J->enVie=0;
+            }
+
+            // Si c'est un obstacle on le tue et explose pas plus loin
+            if (damier[x-i][y] == 'x')
+            {
+                encoreEnHaut=0;
+                damier[x-i][y]=' ';
+                J->nombreObstacleCasse++;
+            }
+
+            // Si c'est un mur, on vérifie pas plus loin
+            if (damier[x-i][y] == '#')
+            {
+                encoreEnHaut = 0;
+            }
+        }
+
+        // Explosion vers le bas
+        if (encoreEnBas>0)
+        {
+            encoreEnBas--;
+
+            // Si c'est le joueur, on perd
+            if (damier[x+i][y] == 'B')
+            {
+                J->enVie=0;
+            }
+
+            // Si c'est un obstacle on le tue et explose pas plus loin
+            if (damier[x+i][y] == 'x')
+            {
+                encoreEnBas=0;
+                damier[x+i][y]=' ';
+                J->nombreObstacleCasse++;
+            }
+
+            // Si c'est un mur, on vérifie pas plus loin
+            if (damier[x+i][y] == '#')
+            {
+                encoreEnBas = 0;
+            }
+        }
+
+        // Explosion vers la gauche
+        if (encoreAGauche>0)
+        {
+            encoreAGauche--;
+
+            // Si c'est le joueur, on perd
+            if (damier[x][y-i] == 'B')
+            {
+                J->enVie=0;
+            }
+
+            // Si c'est un obstacle on le tue et explose pas plus loin
+            if (damier[x][y-i] == 'x')
+            {
+                encoreAGauche=0;
+                damier[x][y-i]=' ';
+                J->nombreObstacleCasse++;
+            }
+
+            // Si c'est un mur, on vérifie pas plus loin
+            if (damier[x][y-i] == '#')
+            {
+                encoreAGauche= 0;
+            }
+        }
+
+        // Explosion vers la droite
+        if (encoreADroite>0)
+        {
+            encoreADroite--;
+
+            // Si c'est le joueur, on perd
+            if (damier[x][y+i] == 'B')
+            {
+                J->enVie=0;
+            }
+
+            // Si c'est un obstacle on le tue et explose pas plus loin
+            if (damier[x][y+i] == 'x')
+            {
+                encoreADroite=0;
+                damier[x][y+i]=' ';
+                J->nombreObstacleCasse++;
+            }
+
+            // Si c'est un mur, on vérifie pas plus loin
+            if (damier[x][y+i] == '#')
+            {
+                encoreADroite= 0;
+            }
+        }
+    }
 }

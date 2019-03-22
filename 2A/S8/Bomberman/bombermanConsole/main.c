@@ -4,7 +4,7 @@
 
 #include "utilitaire.h"
 
-#define NOMBRE_OBSTACLE 5
+#define NOMBRE_OBSTACLE 25
 
 int main()
 {
@@ -33,6 +33,9 @@ int main()
     bomberman *J1=malloc(sizeof(bomberman));
     J1->x=4;
     J1->y=1;
+    J1->enVie=1;
+    J1->nombreBombesPose=0;
+    J1->nombreObstacleCasse=0;
     J1->nombreBombeActive=0;
 
 
@@ -41,18 +44,19 @@ int main()
     obstacle(NOMBRE_OBSTACLE, ligne, colonne, damier);
 
 
-    // Affichage du damier
-    affiche(ligne, colonne, damier);
-
 
     // Initialisation du "booleen" et de l'input
     int jouer = 1;
     char input='\n';
 
+    float score;
 
     // Boucle de jeu
-    while (jouer)
+    while (J1->enVie)
     {
+        // Affichage du damier
+        affiche(ligne, colonne, damier);
+
         // Action (déplacement / Poser Bombe)
         printf("dans quelle direction se deplacer (ou bien poser une bombe) ?\n");
         scanf("%c",&input);
@@ -60,16 +64,20 @@ int main()
 
 
         // Action en fonction de la touche jouer
-        action(input, J1, ligne, colonne, damier);
-        affiche(ligne, colonne, damier);
+        actionJoueur(input, J1, ligne, colonne, damier);
+        actionBombe(J1, ligne, colonne, damier);
 
-
-        // Test
-        for (int i=0; i<J1->nombreBombeActive; i++)
+        /*// Affichage de test
+        if (J1->nombreObstacleCasse==0)
         {
-            printf("bombe numéro %d, coordonné %d %d, et temps avant explosion %d\n",
-            i, J1->listeBombe[i]->x, J1->listeBombe[i]->y, J1->listeBombe[i]->tempsAvantExplosion);
+            score = 0;
+        }else
+        {
+            score = (float)J1->nombreObstacleCasse/(J1->nombreBombesPose*RAYON_EXPLOSION);
         }
+        printf("Score du joueur :\nnombre de mur cassé / (nombre de bombe * rayon explosion)\n= %d / (%d * %d) = %f\n",
+        J1->nombreObstacleCasse, J1->nombreBombesPose, RAYON_EXPLOSION, score);
+*/
 
         // On vide le buffer de stdin pour ne pas avoir de \n ni meme un autre caractère que l'utilisateur pourrait avoir rentré.
         int c;
@@ -77,5 +85,6 @@ int main()
             c = getchar();
         } while (c != '\n' && c != EOF);
     }
+    printf("\n\nPartie TERMINEE");
    return 0;
 }
