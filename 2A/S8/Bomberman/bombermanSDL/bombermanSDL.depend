@@ -1,17 +1,18 @@
 # depslib dependency file v1.0
-1553473257 source:/home/benoit/Documents/Workspace/C/bombermanSDL/main.c
+1553541870 source:/home/benoit/Documents/Workspace/C/bombermanSDL/main.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	"Display.h"
 
-1553473030 source:/home/benoit/Documents/Workspace/C/bombermanSDL/Display.c
+1553541750 source:/home/benoit/Documents/Workspace/C/bombermanSDL/Display.c
 	<stdlib.h>
 	<stdio.h>
+	<string.h>
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	"Display.h"
 
-1553471648 /home/benoit/Documents/Workspace/C/bombermanSDL/Display.h
+1553540224 /home/benoit/Documents/Workspace/C/bombermanSDL/Display.h
 

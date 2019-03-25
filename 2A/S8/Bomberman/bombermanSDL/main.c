@@ -6,8 +6,8 @@
 
 #include "Display.h"
 
-#define RESOLUTION 32
-
+#define RESOLUTION 64
+#define NOMBRE_OBSTACLE 25
 
 int main(int argc, char* args[])
 {
@@ -27,6 +27,7 @@ int main(int argc, char* args[])
 	}
 	fclose(map);
 
+	// Initialisation de la taille de la fenetre de jeu
     int SCREEN_WIDTH = (RESOLUTION * (colonne-2));
     int SCREEN_HEIGHT = (RESOLUTION * ligne);
 
@@ -38,17 +39,23 @@ int main(int argc, char* args[])
 
 	// Création du contenu de la fenetre
 	SDL_Renderer *renderer = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	// Couleur Bleu jolie
-	SDL_SetRenderDrawColor(renderer, 15, 157, 232, 0);
 
 	IMG_Init(IMG_INIT_PNG);
 
 	SDL_Texture *mapTexture[ligne][colonne];
 
-    tableauDeCharATexture(ligne, colonne, &damier, renderer, &mapTexture);
-
-	SDL_Rect mapTextureDestination[ligne][colonne];
-	textureDestinationInit(ligne, colonne, mapTextureDestination, RESOLUTION);
+    // Initialisation des elements du jeu
+        // Initialisation du personnage
+    bomberman *J1=malloc(sizeof(bomberman));
+    J1->x=4;
+    J1->y=1;
+    J1->enVie=1;
+    J1->nombreBombesPose=0;
+    J1->nombreObstacleCasse=0;
+    J1->nombreBombeActive=0;
+        // Initialisation du damier
+    damier[J1->x][J1->y]='B';
+    obstacle(NOMBRE_OBSTACLE, ligne, colonne, damier);
 
 	int jouer =1;
 	SDL_Event event;
@@ -60,13 +67,38 @@ int main(int argc, char* args[])
 			{
 				jouer = 0;
 			}
+			if(event.type == SDL_KEYDOWN)
+			{
+                switch(event.key.keysym.sym)
+                {
+                    case SDLK_LEFT:
+                        actionJoueur('q', J1, ligne, colonne, &damier);
+                        break;
+                    case SDLK_RIGHT:
+                        actionJoueur('d', J1, ligne, colonne, &damier);
+                        break;
+                    case SDLK_UP:
+                        actionJoueur('z', J1, ligne, colonne, &damier);
+                        break;
+                    case SDLK_DOWN:
+                        actionJoueur('s', J1, ligne, colonne, &damier);
+                        break;
+                    case SDLK_SPACE:
+                        actionJoueur(' ', J1, ligne, colonne, &damier);
+                        break;
+                }
+			}
 		}
+
+        tableauDeCharATexture(ligne, colonne, &damier, renderer, &mapTexture);
+        SDL_Rect mapTextureDestination[ligne][colonne];
+        textureDestinationInit(ligne, colonne, mapTextureDestination, RESOLUTION);
+
 		// Clear
 		SDL_RenderClear(renderer);
 
 		// Dessine
 		//SDL_RenderCopy(renderer, mapTexture[0][0], NULL, &(mapTextureDestination[0][0]));
-        SDL_Delay(1000);
         for (int i=0;i<ligne;i++)
 		{
             for (int j=0; j<colonne; j++)

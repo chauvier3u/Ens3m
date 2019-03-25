@@ -1,0 +1,44 @@
+Conquest installation instructions
+
+
+1.
+________________________________________________________________________________________________________________
+
+In order to use this pack properly you need to either use McPatcher or Optifine to get the full pack experience.
+Because as many of you already know Vanilla Minecraft supports HD textures and fonts but that hd support is poorly done and doesnt allow for the highend solutions Optifine and MCPatcher offer, with their connected textures system and hd font support.
+
+
+Downloads for the patchers:
+
+Optifine
+http://www.minecraftforum.net/topic/249637-164-optifine-hd-c7-fps-boost-hd-textures-aa-af-and-much-more/
+
+MCPatcher
+http://www.minecraftforum.net/topic/232701-18pre-compatible-mcpatcher-hd-fix-210-02/
+
+
+When installing McPatcher make sure that all the boxes are checked before patching you game(also note that if the boxes are grayed out you have to update your patcher).
+If you are using optifine instead make sure that connected textures is enabled in the videosettings (options/videosettings/Quality)
+
+
+2.
+________________________________________________________________________________________________________________
+
+Now go into your game open the Resourcepackselectionscreen and click on open resourcepackfolder and drag conquest.zip there.
+Alternatly you can click on "Windows Start" > Run (or search) and type: %appdata%/.minecraft/texturepacks
+
+
+3.
+________________________________________________________________________________________________________________
+
+
+Now select Conquest in the resourcepackmenu and move it to selected packs hit done and wait for the game to load the textures
+
+
+4.
+________________________________________________________________________________________________________________
+
+Enjoy the pack ;)
+
+
+Monster_

@@ -1,0 +1,91 @@
+{
+  "wolves": {
+    "sounds": [
+         "extra/wolf"            
+    ]
+  },
+  
+  "wind": {
+    "sounds": [
+       "extra/wind"
+    ]
+  },
+  
+   "waterfall": {
+    "sounds": [
+         "extra/waterfall"
+    ]
+  },
+  
+   "tavern": {
+    "sounds": [
+      "extra/tavern"
+    ]
+  },
+  
+   "seagulls": {
+    "sounds": [
+    "extra/seagulls"
+    ]
+  },
+  
+   "rainforest": {
+    "sounds": [
+     "extra/rainforest"
+    ]
+  },
+  
+   "ocean": {
+    "sounds": [
+       "extra/ocean"
+    ]
+  },
+  
+   "market": {
+      "sounds": [
+      "extra/market"
+    ]
+  },
+  
+   "forest": {
+    "sounds": [
+      "extra/forest"
+    ]
+  },
+  
+   "crickets": {
+    "sounds": [
+      "extra/crickets"
+    ]
+  },
+  
+   "bells": {
+    "sounds": [
+       "extra/bells"
+    ]
+  },
+  
+   "stream": {
+    "sounds": [
+       "extra/stream"
+    ]
+  },
+  
+   "smallwaterfall": {
+    "sounds": [
+       "extra/smallwaterfall"
+    ]
+  },
+  
+   "city": {
+    "sounds": [
+       "extra/city"
+    ]
+  },
+  
+   "harbor": {
+    "sounds": [
+       "extra/harbor"
+    ]
+  }
+}
