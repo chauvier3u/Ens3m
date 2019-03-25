@@ -1,6 +1,0 @@
-{
-    "parent": "block/normal_rail_flat_plank",
-    "textures": {
-        "plank": "blocks/rail_plank_5"
-    }
-} 
