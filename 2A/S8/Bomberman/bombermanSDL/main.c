@@ -8,9 +8,6 @@
 
 #define RESOLUTION 32
 
-const int SCREEN_WIDTH = (RESOLUTION * 24);
-const int SCREEN_HEIGHT = (RESOLUTION * 16);
-
 
 int main(int argc, char* args[])
 {
@@ -30,6 +27,9 @@ int main(int argc, char* args[])
 	}
 	fclose(map);
 
+    int SCREEN_WIDTH = (RESOLUTION * (colonne-2));
+    int SCREEN_HEIGHT = (RESOLUTION * ligne);
+
 	// Initialisation de la SDL
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -45,15 +45,7 @@ int main(int argc, char* args[])
 
 	SDL_Texture *mapTexture[ligne][colonne];
 
-    int i,j;
-    for (i=0; i<ligne; i++)
-    {
-        for (j=0; j<colonne; j++)
-        printf("%c",damier[i][j]);
-    }
-    printf("%d\n", &damier);
-
-    tableauDeCharATexture(ligne, colonne, &damier, &renderer, &mapTexture);
+    tableauDeCharATexture(ligne, colonne, &damier, renderer, &mapTexture);
 
 	SDL_Rect mapTextureDestination[ligne][colonne];
 	textureDestinationInit(ligne, colonne, mapTextureDestination, RESOLUTION);
@@ -75,13 +67,13 @@ int main(int argc, char* args[])
 		// Dessine
 		//SDL_RenderCopy(renderer, mapTexture[0][0], NULL, &(mapTextureDestination[0][0]));
         SDL_Delay(1000);
-        /*for (int i=0;i<ligne;i++)
+        for (int i=0;i<ligne;i++)
 		{
             for (int j=0; j<colonne; j++)
             {
                 SDL_RenderCopy(renderer, mapTexture[i][j], NULL, &mapTextureDestination[i][j]);
             }
-		}*/
+		}
 
 		// Affiche
 		SDL_RenderPresent(renderer);
